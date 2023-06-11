@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Grabber : MonoBehaviour
+public class MoveCube : MonoBehaviour
 {
-
     private GameObject selectedObject;
 
     private void Update()
@@ -28,7 +27,7 @@ public class Grabber : MonoBehaviour
             {
                 Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                selectedObject.transform.position = new Vector3(worldPosition.x, 0f, worldPosition.z);
+                selectedObject.transform.position = worldPosition;
 
                 selectedObject = null;
                 Cursor.visible = true;
@@ -39,14 +38,11 @@ public class Grabber : MonoBehaviour
         {
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(selectedObject.transform.position).z);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-            selectedObject.transform.position = new Vector3(worldPosition.x, .25f, worldPosition.z);
+            selectedObject.transform.position = worldPosition;
 
             if (Input.GetMouseButtonDown(1))
             {
-                selectedObject.transform.rotation = Quaternion.Euler(new Vector3(
-                    selectedObject.transform.rotation.eulerAngles.x,
-                    selectedObject.transform.rotation.eulerAngles.y + 90f,
-                    selectedObject.transform.rotation.eulerAngles.z));
+                selectedObject.transform.rotation *= Quaternion.Euler(Vector3.up * 90f);
             }
         }
     }
